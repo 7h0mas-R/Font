@@ -5,8 +5,8 @@ generate text arrays for use with LCD displays
 
 'use strict';
 
-const fs = require("fs")
-const path = require("path")
+const fs = require("fs");
+const path = require("path");
 
 const fontStyle = Object.freeze({
     normal: 0,
@@ -131,6 +131,7 @@ class Font {
     */
     getStringWidth(string) {
         var width = 0
+        string = string || '';
         for (let i = 0; i < string.length; i++) {
             width += this.getCharWidth(string[i]);
         }
