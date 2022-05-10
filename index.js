@@ -41,14 +41,15 @@ class Font {
     Function to read Font Data from JSON file
     */
     loadFontFromJSON(fontPath) {
+        var self = this;
         fontPath = __dirname + '/Fonts_JSON/' + fontPath;
         if (fs.existsSync(fontPath)) {
             var j = fs.readFileSync(fontPath, {encoding:'utf8'});
-            Object.assign(this,JSON.parse(j))  
-            this.initialize();      
+            Object.assign(self,JSON.parse(j))  
+            self.initialize();      
         } else {
-            var pathOnly = path.dirname(path);
-            throw new Error('cannot read font: ' + path + ' found: ' + fs.readdirSync(pathOnly))
+            var pathOnly = path.dirname(fontPath);
+            throw new Error('cannot read font: ' + fontPath + ' found: ' + fs.readdirSync(pathOnly))
         }
     }
 
