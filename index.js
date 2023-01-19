@@ -35,7 +35,7 @@ class Font {
     initialize(){
         this._heightBytes = this._height/8;
         this._replacementCharIdx = this.getCharIdx(this._replacementChar);
-        this._bitmap = Buffer.from(this._bitmap);
+        this._bitmap = Array.from(this._bitmap);
     }
     /* 
     Function to read Font Data from JSON file
@@ -66,7 +66,7 @@ class Font {
     get pages(){return this._heightBytes}
 
     applyStyle(array, style){
-        if (Buffer.isBuffer(array) && style > 0) {
+        if (Array.isArray(array) && style > 0) {
             let centerPos = this._height/2;
             let ulinePos = this._heightBytes * 8 - 3;
             let cols = array.length/this._heightBytes;
@@ -92,7 +92,7 @@ class Font {
     
     getSpacer(style){
         style = style || 0;
-        var spacer = Buffer.alloc(this._spacing*this._heightBytes);
+        var spacer = Array(this._spacing*this._heightBytes).fill(0);
         return spacer;
     }
     /**
@@ -109,7 +109,7 @@ class Font {
             let spacing = this._spacing;
             let stringCols = this.getStringWidth(string);
 
-            let stringMap = Buffer.alloc(stringCols);
+            let stringMap = Array(stringCols).fill(0);
             let bufPos = 0;
             for (let i = 0; i < string.length; i++) {
                 var buf = this.getChar(string[i], style);
@@ -201,7 +201,7 @@ class Font {
     consolePlot(map) {
         let output = '';
         let heightMult = this._heightBytes;
-        if (Buffer.isBuffer(map)) {
+        if (Array.isArray(map)) {
             let max = (map.length > 96) ? 96: map.length;
             for (let k = 0; k < heightMult; k++) {  //row index
                 for (let i = 0; i < 8; i++) {  //Bit index (pixel)
