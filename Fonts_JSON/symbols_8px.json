@@ -40,7 +40,7 @@
         113
     ],
     "_bitmap": {
-        "type": "Buffer",
+        "type": "Array",
         "data": [
             24,
             24,

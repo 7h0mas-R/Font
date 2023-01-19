@@ -38,7 +38,7 @@
         1288
     ],
     "_bitmap": {
-        "type": "Buffer",
+        "type": "Array",
         "data": [
             0,
             0,

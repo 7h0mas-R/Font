@@ -35,7 +35,7 @@ class Font {
     initialize(){
         this._heightBytes = this._height/8;
         this._replacementCharIdx = this.getCharIdx(this._replacementChar);
-        this._bitmap = Array.from(this._bitmap);
+        this._bitmap = this._bitmap.data;
     }
     /* 
     Function to read Font Data from JSON file
@@ -109,14 +109,15 @@ class Font {
             let spacing = this._spacing;
             let stringCols = this.getStringWidth(string);
 
-            let stringMap = Array(stringCols).fill(0);
-            let bufPos = 0;
+            let stringMap = [];
+            // let bufPos = 0;
             for (let i = 0; i < string.length; i++) {
                 var buf = this.getChar(string[i], style);
-                buf.copy(stringMap,bufPos,0);
-                bufPos+= buf.length;
-                this.getSpacer(style).copy(stringMap, bufPos, 0)
-                bufPos+= spacing*heightMult;                    
+                // buf.copy(stringMap,bufPos,0);
+                stringMap.push(...buf);
+                // bufPos+= buf.length;
+                stringMap.push(...this.getSpacer(style));
+                // bufPos+= spacing*heightMult;                    
             }
             this.applyStyle(stringMap,style);
             return stringMap;         
@@ -190,7 +191,8 @@ class Font {
         //         charMap[i][j] = (this._data.readUInt8(charPos + i * heightMult + j));
         //     };
         // }
-        var charMap = this._bitmap.subarray(pos, pos + bytes);
+        // var charMap = this._bitmap.subarray(pos, pos + bytes);
+        var charMap = this._bitmap.slice(pos, pos + bytes);
         return charMap;
     }
 

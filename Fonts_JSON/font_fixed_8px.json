@@ -8,7 +8,7 @@
     "_widthLookup": -1,
     "_positionLookup": -1,
     "_bitmap": {
-        "type": "Buffer",
+        "type": "Array",
         "data": [
             0,
             0,
